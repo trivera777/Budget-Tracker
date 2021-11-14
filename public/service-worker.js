@@ -7,13 +7,12 @@ const FILES_TO_CACHE = [
     '/',
     '/index.html',
     '/index.js',
-    // '/server.js',
-    // '/service-worker.js',
     '/styles.css',
-    // '/manifest.webmanifest',
     '/icons/icon-192x192.png',
-    '/icons/icon-512x512.png'
-    // '/dist/topic.bundle.js',
+    '/icons/icon-512x512.png',
+    '/manifest.webmanifest'
+    // "/dist/bundle.js",
+    // "/dist/manifest.webmanifest"
   ];
 
   self.addEventListener('install', (event) => {
