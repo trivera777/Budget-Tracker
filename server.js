@@ -17,11 +17,13 @@ app.use(express.static("public"));
 
 mongoose.connect("mongodb://localhost/budget", {
   useNewUrlParser: true,
+  useFindAndModify: false,
+  useCreateIndex: true,
   useFindAndModify: false
 });
 
 // routes
-app.use(require("../../Downloads/du-den-fsf-pt-06-2021-u-c-master-19-PWA-02-Homework-Develop/19-PWA/02-Homework/Develop/routes/api.js"));
+app.use(require("./routes/api"));
 
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}!`);
