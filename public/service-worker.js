@@ -25,6 +25,20 @@ const FILES_TO_CACHE = [
             return cache.addAll(FILES_TO_CACHE)
         })
     )
-       self.skipwaiting()
   });
 
+// activate 
+self.addEventListener('activate', (event) => {
+    console.log('activated');
+    event.waitUntil(
+       caches.keys()
+       .then((keyList) => {
+           return Promise.all(keyList.map((key) => {
+               if(key !== CACHE_NAME){
+                   console.log('working',key);
+                   return caches.delete(key)
+               }
+           }))
+       })
+    )
+})
