@@ -12,13 +12,13 @@ request.onsuccess = function (event) {
     db = event.target.result;
 
     if (navigator.onLine) {
-        checkDatabase();
+        checkDB();
     }
 };
 
 request.onerror = function (event) {
     // log error here
-    console.log("Oh no!" + event.target.errorCode);
+    console.log(event.target.errorCode);
 };
 
 function saveRecord(record) {
@@ -32,7 +32,7 @@ function saveRecord(record) {
     store.add(record);
 }
 
-function checkDatabase() {
+function checkDB() {
     // open a transaction on your pending db
     const transaction = db.transaction("pending", "readwrite");
 
@@ -67,4 +67,4 @@ function checkDatabase() {
 }
 
 // listen for app coming back online
-window.addEventListener('online', checkDatabase);
+window.addEventListener('online', checkDB);
