@@ -1,57 +1,62 @@
 let db;
-let budgetVersion;
+const request = indexedDB.open('budget_tracker', 1);
 
-const request = indexedDB.open('BudgetDB', 1);
-
-request.onupgradeneeded = function (e) {
-  db = e.target.result;
-  const { oldVersion } = e;
-  const newVersion = e.newVersion || db.version;
-
-  if (db.objectStoreNames.length === 0) {
-    db.createObjectStore('BudgetStore', { autoIncrement: true });
-  }
+request.onupgradeneeded = function(event) {
+    const db = event.target.result;
+    db.createObjectStore('new_transaction', { autoIncrement: true });
 };
 
 
-function checkDatabase() {
-  let transaction = db.transaction(['BudgetStore'], 'readwrite');
-  const store = transaction.objectStore('BudgetStore');
-  const getAll = store.getAll();
+request.onsuccess = function(event) {
+    db = event.target.result;
+    if (navigator.onLine) {
+      uploadTransaction();
+    }
+  };
+  
+request.onerror = function(event) {
+console.log(event.target.errorCode);
+};
 
-  getAll.onsuccess = function () {
+
+function saveRecord(record) {
+    const transaction = db.transaction(['new_transaction'], 'readwrite');
+    const budgetObjectStore = transaction.objectStore('new_transaction');
+  
+    budgetObjectStore.add(record);
+};
+
+function uploadTransaction() {
+    const transaction = db.transaction(['new_transaction'], 'readwrite');
+    const budgetObjectStore = transaction.objectStore('new_transaction');
+    const getAll = budgetObjectStore.getAll();
+  
+    getAll.onsuccess = function() {
     if (getAll.result.length > 0) {
-      fetch('/api/transaction/bulk', {
+      fetch('/api/transaction', {
         method: 'POST',
         body: JSON.stringify(getAll.result),
         headers: {
           Accept: 'application/json, text/plain, */*',
-          'Content-Type': 'application/json',
-        },
+          'Content-Type': 'application/json'
+        }
       })
-        .then((response) => response.json())
-        .then((res) => {
-          if (res.length !== 0) {
-            transaction = db.transaction(['BudgetStore'], 'readwrite');
-            const currentStore = transaction.objectStore('BudgetStore');
-            currentStore.clear();
+        .then(response => response.json())
+        .then(serverResponse => {
+          if (serverResponse.message) {
+            throw new Error(serverResponse);
           }
+          const transaction = db.transaction(['new_transaction'], 'readwrite');
+          const budgetObjectStore = transaction.objectStore('new_transaction');
+          budgetObjectStore.clear();
+
+          alert('All saved transactions has been submitted!');
+        })
+        .catch(err => {
+          console.log(err);
         });
     }
-  };
+  }
 }
 
-request.onsuccess = function (e) {
-  db = e.target.result;
-  if (navigator.onLine) {
-    console.log('Backend online!');
-    checkDatabase();
-  }
-};
-  const saveRecord = (record) => {
-  const transaction = db.transaction(['BudgetStore'], 'readwrite');
-  const store = transaction.objectStore('BudgetStore');
-  store.add(record);
-};
-
-window.addEventListener('online', checkDatabase);
+window.addEventListener('online', uploadTransaction);
