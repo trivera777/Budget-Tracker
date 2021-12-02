@@ -1,11 +1,11 @@
 body {
   font-size: 120%;
-  font-family: Arial;
+  font-family:'Anton', sans-serif;
 }
 
 button, input {
   font-size: 100%;
-  font-family: Arial;
+  font-family: sans-serif;
 }
 
 table {

@@ -1,6 +1,6 @@
 # Online/Offline Budget-Tracker
 
-# User Story
+## User Story
 ````
 AS AN avid traveller 
 I WANT to be able to track my withdrawals and deposits with or without a data/internet connection
@@ -13,8 +13,8 @@ Giving users a fast and easy way to track their money is important, but allowing
 
 This application allows users to keep track of their expenses and deposits on or offline.
 
+# Screenshot
+![screenshot](./public/icons/budgettracker.png)
+
 # Live URL
-[Live Application](https://arcane-fortress-24127.herokuapp.com/)
-
-
-adding more to readme 
+[Click here to track your budget](https://tr-budgettracker.herokuapp.com/)
