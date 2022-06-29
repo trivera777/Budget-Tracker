@@ -28,3 +28,15 @@ This application allows users to keep track of their expenses and deposits on or
 
 # Live URL
 [Click here to track your budget](https://tr-budgettracker.herokuapp.com/)
+
+# Built With
+- HTML
+- CSS
+- Bootstrap 
+- JavaScript
+- MongoDB
+- Mongoose
+- Node.js
+  - Express.js
+- IndexedDB
+- Heroku
