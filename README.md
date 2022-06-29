@@ -1,4 +1,14 @@
 # Online/Offline Budget-Tracker
+Built using Progressive Web Apps. PWAs are web apps that use service workers, manifests, and other web-platform features in combination with progressive enhancement to give users an experience on par with native apps.
+
+#### Service Worker
+- #### Purpose
+    - Service worker provides a programmatic way to cache app resources.  
+
+- #### Service Worker Life Cycle
+    - install
+    - activate
+    - fetch
 
 ## User Story
 ````
