@@ -23,7 +23,7 @@ Giving users a fast and easy way to track their money is important, but allowing
 
 This application allows users to keep track of their expenses and deposits on or offline.
 
-# Screenshot
+# Preview
 ![screenshot](./public/icons/budgettracker.png)
 
 # Live URL
